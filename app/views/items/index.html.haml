@@ -1,0 +1,261 @@
+.toppage-container
+  = render partial: 'shared/main_header'
+  .main-content
+    .middle
+      .middle__content
+        .link-list
+          .slider
+            フリーマーケットサイト チーム56b
+
+    
+    .popular
+      %h2.popular__title.bold
+        人気のカテゴリー
+      .popular__box
+        %ul.popular__box--lists
+          %li.list
+            = link_to "レディース", "", id: "category-ladies"
+          %li.list
+            = link_to "メンズ", "", id: "category-mens"
+          %li.list
+            = link_to "家電・スマホ・カメラ", "", id: "category-phones"
+          %li.list
+            = link_to "おもちゃ・ホビー・グッズ", "", id: "category-toys"
+    .popular-items
+      .popular-header
+        .popular-header__item
+          %h3.popular-header__item__title#target-ladies
+            レディース新着アイテム
+          = link_to "#" do
+            もっと見る
+            = fa_icon "chevron-right"
+        .popular-content
+          .popular-content__items
+            %ul.popular-content__items--list
+              // データベースから並べる時に使用
+              - @ladies.each do |lady|
+                %li.popular-content__item
+                  %div{style: "visibility: visible; transition: all 0.5s ease 0s; opacity: 1;"}
+                    = link_to item_path(lady), class: "items-link" do
+                      .item-box
+                        %span
+                          ¥
+                          = lady.price
+                        = image_tag lady.photos.first.photo.to_s
+                        - unless lady.buyer_id.nil?
+                          %figcaption
+                            .item-sold-out-badge
+                              .soldout SOLD
+                      .item-name
+                        %span
+                          = lady.name
+
+      .popular-header
+        .popular-header__item
+          %h3.popular-header__item__title#target-mens
+            メンズ新着アイテム
+          = link_to "#" do
+            もっと見る
+            = fa_icon "chevron-right"
+        .popular-content
+          .popular-content__items
+            %ul.popular-content__items--list
+              - @mens.each do |men|
+                %li.popular-content__item
+                  %div{style: "visibility: visible; transition: all 0.5s ease 0s; opacity: 1;"}
+                    = link_to item_path(men), class: "items-link" do
+                      .item-box
+                        %span
+                          ¥
+                          = men.price
+                        = image_tag men.photos.first.photo
+                        - unless men.buyer_id.nil?
+                          %figcaption
+                            .item-sold-out-badge
+                              .soldout SOLD
+                      .item-name
+                        %span
+                          = men.name
+
+      .popular-header
+        .popular-header__item
+          %h3.popular-header__item__title#target-phones
+            家電・スマホ・カメラ新着アイテム
+          = link_to "#" do
+            もっと見る
+            = fa_icon "chevron-right"
+        .popular-content
+          .popular-content__items
+            %ul.popular-content__items--list
+              - @phones.each do |phone|
+                %li.popular-content__item
+                  %div{style: "visibility: visible; transition: all 0.5s ease 0s; opacity: 1;"}
+                    = link_to item_path(phone), class: "items-link" do
+                      .item-box
+                        %span
+                          ¥
+                          = phone.price
+                        = image_tag phone.photos.first.photo
+                        - unless phone.buyer_id.nil?
+                          %figcaption
+                            .item-sold-out-badge
+                              .soldout SOLD
+                      .item-name
+                        %span
+                          = phone.name
+      
+      .popular-header
+        .popular-header__item
+          %h3.popular-header__item__title#target-toys
+            おもちゃ・ホビー・グッズ新着アイテム
+          = link_to "#" do
+            もっと見る
+            = fa_icon "chevron-right"
+        .popular-content
+          .popular-content__items
+            %ul.popular-content__items--list
+              - @toys.each do |toy|
+                %li.popular-content__item
+                  %div{style: "visibility: visible; transition: all 0.5s ease 0s; opacity: 1;"}
+                    = link_to item_path(toy), class: "items-link" do
+                      .item-box
+                        %span
+                          ¥
+                          = toy.price
+                        = image_tag toy.photos.first.photo
+                        - unless toy.buyer_id.nil?
+                          %figcaption
+                            .item-sold-out-badge
+                              .soldout SOLD
+                      .item-name
+                        %span
+                          = toy.name
+    
+    .popular
+      %h2.popular__title.bold
+        人気のブランド
+      .popular__box
+        %ul.popular__box--lists
+          %li.list
+            = link_to "シャネル", "", id: "brand-chanels"
+          %li.list
+            = link_to "ルイヴィトン", "", id: "brand-vitons"
+          %li.list
+            = link_to "シュプリーム", "", id: "brand-supremes"
+          %li.list
+            = link_to "ナイキ", "", id: "brand-nikes"
+
+    .popular-items
+      .popular-header
+        .popular-header__item
+          %h3.popular-header__item__title#target-chanels
+            シャネル新着アイテム
+          = link_to "#" do
+            もっと見る
+            = fa_icon "chevron-right"
+        .popular-content
+          .popular-content__items
+            %ul.popular-content__items--list
+              - @chanels.each do |chanel|
+                %li.popular-content__item
+                  %div{style: "visibility: visible; transition: all 0.5s ease 0s; opacity: 1;"}
+                    = link_to item_path(chanel), class: "items-link" do
+                      .item-box
+                        %span
+                          ¥
+                          = chanel.price
+                        = image_tag chanel.photos.first.photo
+                        - unless chanel.buyer_id.nil?
+                          %figcaption
+                            .item-sold-out-badge
+                              .soldout SOLD
+                      .item-name
+                        %span
+                          = chanel.name
+      
+      .popular-header
+        .popular-header__item
+          %h3.popular-header__item__title#target-vitons
+            ルイヴィトン新着アイテム
+          = link_to "#" do
+            もっと見る
+            = fa_icon "chevron-right"
+        .popular-content
+          .popular-content__items
+            %ul.popular-content__items--list
+              - @vitons.each do |viton|
+                %li.popular-content__item
+                  %div{style: "visibility: visible; transition: all 0.5s ease 0s; opacity: 1;"}
+                    = link_to item_path(viton), class: "items-link" do
+                      .item-box
+                        %span
+                          ¥
+                          = viton.price
+                        = image_tag viton.photos.first.photo
+                        - unless viton.buyer_id.nil?
+                          %figcaption
+                            .item-sold-out-badge
+                              .soldout SOLD
+                      .item-name
+                        %span
+                          = viton.name
+
+      .popular-header
+        .popular-header__item
+          %h3.popular-header__item__title#target-supremes
+            シュプリーム新着アイテム
+          = link_to "#" do
+            もっと見る
+            = fa_icon "chevron-right"
+        .popular-content
+          .popular-content__items
+            %ul.popular-content__items--list
+              - @supremes.each do |supreme|
+                %li.popular-content__item
+                  %div{style: "visibility: visible; transition: all 0.5s ease 0s; opacity: 1;"}
+                    = link_to item_path(supreme), class: "items-link" do
+                      .item-box
+                        %span
+                          ¥
+                          = supreme.price
+                        = image_tag supreme.photos.first.photo
+                        - unless supreme.buyer_id.nil?
+                          %figcaption
+                            .item-sold-out-badge
+                              .soldout SOLD
+                      .item-name
+                        %span
+                          = supreme.name
+      
+      .popular-header
+        .popular-header__item
+          %h3.popular-header__item__title#target-nikes
+            ナイキ新着アイテム
+          = link_to "#" do
+            もっと見る
+            = fa_icon "chevron-right"
+        .popular-content
+          .popular-content__items
+            %ul.popular-content__items--list
+              - @nikes.each do |nike|
+                %li.popular-content__item
+                  %div{style: "visibility: visible; transition: all 0.5s ease 0s; opacity: 1;"}
+                    = link_to item_path(nike), class: "items-link" do
+                      .item-box
+                        %span
+                          ¥
+                          = nike.price
+                        = image_tag nike.photos.first.photo
+                        - unless nike.buyer_id.nil?
+                          %figcaption
+                            .item-sold-out-badge
+                              .soldout SOLD
+                      .item-name
+                        %span
+                          = nike.name
+    
+  = render partial: 'shared/main_aside'
+
+  = render partial: 'shared/main_footer'
+
+  = render partial: 'shared/sell_btn'

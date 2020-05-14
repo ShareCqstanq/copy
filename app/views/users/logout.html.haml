@@ -1,0 +1,26 @@
+//ユーザーログアウトページ
+.user-container
+  = render partial: "shared/main_header"
+  %nav.bread-crumbs
+    // パンくずリスト
+    .bread-crumbs__line
+      - breadcrumb :logout
+      = breadcrumbs separator: " &rsaquo; ", class:"bread-crumbs-list"    
+  %main.l-container.clearfix
+    .l-content
+      .l-chapter-container
+        %form{action: "", method: "POST", class: "l-single-inner", novalidate: "novalidate"}
+          .l-single-content
+            = link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn-default btn-red"
+
+    // 部分テンプレートのサイドメニューを呼び出し
+    = render partial: "side_menu"
+    
+
+
+  //バナーのテンプレートを挿入
+  = render partial: "shared/main_aside"
+  //フッターのテンプレートを挿入
+  = render partial: "shared/main_footer"
+  //出品ボタンのテンプレート呼びだし
+  = render partial: "shared/sell_btn"

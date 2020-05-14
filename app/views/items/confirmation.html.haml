@@ -1,0 +1,89 @@
+.common-container
+  %header.common-header
+    = render "shared/signup-header"
+  %main.single-main
+    %section.l-single-container.buy-item-container
+      %h2.l-single-head
+        購入内容の確認
+      %section.buy-content.buy-item
+        .buy-content-inner
+          %h3.buy-item-image
+            = image_tag @item.photos.first.photo, class: "lazyloaded",style: "width: 80px; height: 80px;"
+          %p.buy-item-name.bold
+            = @item.name
+          %form{action: "", method: "POST", novalidate: "novalidate"}
+            %p.buy-price-ja.bold
+              ¥
+              = @item.price
+              %span.item-shipping-fee.f14.bold
+                送料込み
+            %ul.buy-accordion.not-have
+              //ポイントがある場合とない場合で分ける
+              %li.accordion-parent
+                .accordion-toggle
+                  ポイントはありません
+            %ul.buy-price-table
+              %li.buy-price-row.buy-you-pay.bold
+                .buy-price-cell
+                  支払い金額
+                .buy-price-cell
+                  %span{"data-buy-pay" => "10000"}
+                    ¥
+                    = @item.price
+            %br
+          - if @default_card_information.present?
+            -# %button{type: "submit", class: "btn-default btn-red bold"}
+            -#   購入する
+            = form_tag(action: :buy, method: :post) do
+              %script.payjp-button{src: "https://checkout.pay.jp/" ,type: "text/javascript" , "data-key": ENV["PAYJP_KEY"] ,"data-text": "購入する"}
+
+          - else
+            %p.has-error-text
+              配送先と支払い方法の入力を完了してください。
+            %button{type: "submit", class: "btn-default btn-red bold", disabled: "disabled"}
+              購入する
+      %section.buy-content.buy-user-info
+        .buy-content-inner
+          %h3
+            配送先
+          %address.buy-user-info-text
+            = "〒" + @address.postcode
+            %br
+            = @address.prefecture.name
+            = @address.city
+            = @address.address
+            = @address.building
+            %br
+            = current_user.personal.last_name
+            = current_user.personal.first_name
+          %p.buy-user-info-text
+          %a.buy-user-info-fix
+            %span
+              変更する
+            = fa_icon "chevron-right"
+      %section.buy-content.buy-user-info{"data-buy" => "pay-method"}
+        .buy-content-inner
+          %h3
+            支払い方法
+          - if @default_card_information
+            %p.buy-user-info-text
+              = "**** **** **** " + @default_card_information.last4
+              %br
+              - exp_month = @default_card_information.exp_month.to_s
+              - exp_year = @default_card_information.exp_year.to_s.slice(2,3)
+              有効期限
+              = exp_month + " / " + exp_year
+            -# 余裕があればカードブランドのロゴを入れたい部分
+            %figure
+              %img{src:"//www-mercari-jp.akamaized.net/assets/img/card/visa.svg?465897195", width:"49", height:"20"}
+          - else
+            %p.buy-user-info-text
+              = "/"
+          %p
+          =link_to card_path(id: current_user.id),class: "buy-user-info-fix" do
+            %span
+              変更する
+            = fa_icon "chevron-right"
+    //フッターの部分テンプレート
+  = render 'shared/signup-footer'
+
